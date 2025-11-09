@@ -153,10 +153,6 @@ pub struct CreateCustomHostnameParams<'a> {
     pub hostname: &'a str,
     /// SSL properties for the custom hostname
     pub ssl: SslParams<'a>,
-    /// A hostname that will be sent to your custom origin server as SNI
-    pub custom_origin_server: Option<&'a str>,
-    /// A hostname that will be sent to your custom origin SNI
-    pub custom_origin_sni: Option<&'a str>,
     /// Unique key/value metadata for this hostname
     pub custom_metadata: Option<serde_json::Value>,
 }
