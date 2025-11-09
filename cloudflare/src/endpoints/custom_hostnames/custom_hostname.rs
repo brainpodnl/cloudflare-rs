@@ -147,6 +147,7 @@ pub enum ListCustomHostnamesOrder {
     SslStatus,
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(Serialize, Clone, Debug)]
 pub struct CreateCustomHostnameParams<'a> {
     /// The custom hostname that will point to your hostname via CNAME
@@ -169,6 +170,7 @@ pub struct UpdateCustomHostnameParams<'a> {
     pub custom_metadata: Option<serde_json::Value>,
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(Serialize, Clone, Debug, Default)]
 pub struct SslParams<'a> {
     /// Domain control validation method
@@ -354,6 +356,7 @@ pub enum Switch {
     Off,
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(Deserialize, Serialize, Debug, Clone, Default)]
 pub struct SslSettings {
     pub http2: Option<Switch>,
