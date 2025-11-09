@@ -173,7 +173,7 @@ pub struct UpdateCustomHostnameParams<'a> {
     pub custom_metadata: Option<serde_json::Value>,
 }
 
-#[derive(Serialize, Clone, Debug)]
+#[derive(Serialize, Clone, Debug, Default)]
 pub struct SslParams<'a> {
     /// Domain control validation method
     pub method: Option<ValidationMethod>,
@@ -352,13 +352,19 @@ pub struct ValidationError {
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "lowercase")]
+pub enum Switch {
+    On,
+    Off,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone, Default)]
 pub struct SslSettings {
-    pub http2: Option<String>,
-    pub http3: Option<String>,
+    pub http2: Option<Switch>,
     pub min_tls_version: Option<String>,
-    pub tls_1_3: Option<String>,
+    pub tls_1_3: Option<Switch>,
     pub ciphers: Option<Vec<String>>,
-    pub early_hints: Option<String>,
+    pub early_hints: Option<Switch>,
 }
 
 #[derive(Deserialize, Debug)]
