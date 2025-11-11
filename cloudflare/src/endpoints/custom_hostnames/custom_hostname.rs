@@ -37,6 +37,30 @@ impl EndpointSpec for ListCustomHostnames<'_> {
     }
 }
 
+/// Custom Hostname Details
+/// <https://developers.cloudflare.com/api/resources/custom_hostnames/methods/get/>
+#[derive(Debug)]
+pub struct GetCustomHostname<'a> {
+    pub zone_id: &'a str,
+    pub identifier: &'a str,
+}
+
+impl EndpointSpec for GetCustomHostname<'_> {
+    type JsonResponse = CustomHostname;
+    type ResponseType = ApiSuccess<Self::JsonResponse>;
+
+    fn method(&self) -> Method {
+        Method::GET
+    }
+
+    fn path(&self) -> String {
+        format!(
+            "zones/{}/custom_hostnames/{}",
+            self.zone_id, self.identifier
+        )
+    }
+}
+
 /// Create Custom Hostname
 /// Add a new custom hostname and request that an SSL certificate be issued for it.
 /// <https://developers.cloudflare.com/api/resources/custom_hostnames/methods/create/>
