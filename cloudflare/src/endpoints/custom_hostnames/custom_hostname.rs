@@ -289,6 +289,8 @@ pub struct Ssl {
     pub wildcard: Option<bool>,
     /// SSL specific errors
     pub validation_errors: Option<Vec<ValidationError>>,
+    /// Validation records
+    pub validation_records: Option<Vec<ValidationRecord>>,
     /// Custom certificate used for this hostname
     pub custom_certificate: Option<String>,
     /// Custom CSR ID
@@ -366,6 +368,15 @@ pub enum BundleMethod {
     Ubiquitous,
     Optimal,
     Force,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub struct ValidationRecord {
+    pub emails: Option<Vec<String>>,
+    pub http_body: Option<String>,
+    pub http_url: Option<String>,
+    pub txt_name: Option<String>,
+    pub txt_value: Option<String>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -447,8 +458,6 @@ mod tests {
         let params = CreateCustomHostnameParams {
             hostname: "app.example.com",
             ssl: ssl_params,
-            custom_origin_server: Some("origin.example.com"),
-            custom_origin_sni: None,
             custom_metadata: None,
         };
 
@@ -603,8 +612,6 @@ mod tests {
                 bundle_method: None,
                 settings: None,
             },
-            custom_origin_server: None,
-            custom_origin_sni: None,
             custom_metadata: Some(metadata),
         };
 
