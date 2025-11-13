@@ -182,6 +182,7 @@ pub struct CreateCustomHostnameParams<'a> {
     pub custom_metadata: Option<serde_json::Value>,
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(Serialize, Clone, Debug)]
 pub struct UpdateCustomHostnameParams<'a> {
     /// SSL properties for the custom hostname
